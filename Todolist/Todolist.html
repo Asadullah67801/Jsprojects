@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Todolist.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Todo APP</title>
+
+     
+</head>
+<body>
+
+
+    <div id="todo-app">
+        <h1>My Todo list</h1>
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="add a new task">
+            <button type="submit">Add task</button>
+
+        </form>
+        <ul id="todo-list"></ul>
+    </div>
+    <script>
+        const todoForm=document.getElementById('todo-form');
+        const todoInput=document.getElementById('todo-input');
+        const todolist=document.getElementById('todo-list');
+        todoForm.addEventListener('submit',function(event){
+            event.preventDefault();
+            const newTask=todoInput.value;
+            if(newTask===""){
+                alert("please enter task");
+                return;
+
+
+            }
+            todoInput.value='';
+            addTask(newTask);
+        });
+        function addTask(task){
+            const listItem=document.createElement('li');
+            const taskText=document.createElement("span");
+            taskText.textContent=task;
+            listItem.appendChild(taskText);
+            const checkBox=document.createElement("input");
+            checkBox.setAttribute('type','checkbox');
+            listItem.appendChild(checkBox);
+            const deleteButton=document.createElement("button");
+            deleteButton.textContent="Delete";
+            listItem.appendChild(deleteButton);
+            todolist.appendChild(listItem);
+            const editButton=document.createElement("button");
+            editButton.textContent="Edit";
+            listItem.appendChild(editButton);
+            checkBox.addEventListener('change',function(){
+                if(this.checked){
+                    taskText.style.textDecoration="line-through";
+
+                }
+                else{
+                    taskText.style.textDecoration="none";
+
+                }
+            });
+            deleteButton.addEventListener("click",function(){
+                todolist.removeChild(listItem);
+
+            });
+            editButton.addEventListener("click",function(){
+                const isEditing=listItem.classList.contains("editing");
+                if(isEditing){
+                    taskText.textContent=this.previousSibling.value;
+                    listItem.classList.remove("editing");
+                    editButton.textContent="Edit";
+
+                }
+                else{
+                    const input=document.createElement("input");
+                    input.type="text";
+                    input.value=taskText.textContent;
+                    listItem.insertBefore(input,taskText);
+                    listItem.removeChild(taskText);
+                    listItem.classList.add("editing");
+                    editButton.textContent="Save";
+
+                }
+            });
+            saveTaskToLocalStorage();
+
+        }
+        function saveTaskToLocalStorage(){
+            const tasks=[];
+            document.querySelectorAll("#todo-list li").forEach(task=>
+            
+            {
+                const taskText=task.querySelector("span").textContent;
+                const isCompleted=task.classList.contains("completed");
+                tasks.push({text:taskText,completed:isCompleted});
+
+            });
+            localStorage.setItem('tasks',JSON.stringify(tasks));
+
+        }
+        document.addEventListener('DOMContentLoaded',function(){
+            const savedTasks=JSON.parse(localStorage.getItem("tasks"))||[];
+            savedTasks.forEach(task=>{
+                addTask(task.text);
+            });
+        });
+
+        </script>
+    
+</body>
+</html>
