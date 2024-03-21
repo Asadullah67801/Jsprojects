@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+</head>
+<body>
+      
+
+
+
+
+
+    <button class="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+        
+    </button>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+
+            <img src="">
+            <button class="close-btn">
+                <i class="fas fa-times">
+                </i>
+            </button>
+        </div>
+        <ul class="links">
+            <li><a href="index.html">index</a></li>
+            <li><a href="about.html">about</a></li>
+            <li><a href="project.html">project</a></li>
+        </ul>
+        <ul class="social-icons">
+         <li>   <a href="twitter.com"></a><i class="fa-brands fa-twitter"></i> 
+        </ul>
+
+
+        <style>
+            *{
+                box-sizing: border-box;
+                margin:0px;
+                padding: 0px;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                font-family: sans-serif;
+
+            }
+            ul{
+                list-style: none;
+
+            }
+            a{
+                text-decoration: none;
+            }
+            h1,h2,h3,h4{
+                letter-spacing: 0.1rem;
+margin-bottom: 0.75rem;
+text-transform: uppercase;
+line-height: 1.24;
+
+            }
+h1{
+    font-size: 3rem;
+}
+h2{
+    font-size: 0.875rem;
+}
+h3{
+    font-size: 1.25rem;
+
+}
+p{
+    margin-bottom:1.25rem;
+}
+main{
+    min-height: 100vh;
+    display: grid;
+    place-items:center;
+
+}
+
+
+.sidebar-toggle{
+    position:fixed;
+    top:2rem;
+    right:3rem;
+    font-size: 2rem;
+    background-color: transparent;
+    border-color: transparent;
+    color:hsl(205,78%,60%);
+    cursor:pointer;
+    transition:0.3s;
+    animation:bounce 2s ease-in-out infinite;
+
+}
+.sidebar-toggle:hover{
+    color:hsl(205,90%,67%);
+
+}
+@keyframes bounce{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.5);
+
+    }
+    100%{
+        transform: scale(1);
+    }
+
+}
+.sidebar-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+
+}
+.close-btn{
+    font-size: 1.75rem;
+    background-color: transparent;
+    border-color: transparent;
+    color:hsl(205,78%,60%);
+    cursor: pointer;
+    color:red;
+
+}
+.close-btn:hover{
+    color:rgb(231, 84, 84);
+}
+.logo{
+    justify-self: center;
+    height: 40px;
+
+}
+.links a{
+    display: block;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    padding: 1rem 1.5rem;
+    color:white;
+
+}
+.links a:hover{
+    color:hsl(205,90%,67%);
+
+
+}
+.social-icon{
+    justify-self: center;
+    display: flex;
+    padding-bottom: 2rem;
+
+}
+.social-icon a{
+    font-size: 1.5rem;
+    margin:0 0.5rem;
+    color:hsl(205,78%,60%);
+
+}
+.social-icon a:hover{
+    color:hsl(100,78%,60%)
+} 
+.sidebar{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 1rem;
+    box-shadow: 0px 2px 3px 3px rgba(0,0,0,0.4);
+    transform: translate(-100%);
+
+}
+.show-sidebar{
+    transform: translate(0);
+}
+@media(min-width:676px){
+    .sidebar{
+        width: 400px;
+    }
+}
+            </style>
+
+
+        <script>
+            const toggleBtn=document.querySelector(".sidebar-toggle");
+            const closeBtn=document.querySelector(".close-btn");
+            const sidebar=document.querySelector(".sidebar");
+            toggleBtn.addEventListener("click",function(){
+                sidebar.classList.toggle("show-sidebar");
+            });
+
+            closeBtn.addEventListener("click",function(){
+                sidebar.classList.remove("show-sidebar");
+
+            });
+
+            </script>
+        </body>
+</html>
